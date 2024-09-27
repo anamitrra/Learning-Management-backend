@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('otps', function (Blueprint $table) {
+        Schema::create('sliders', function (Blueprint $table) {
             $table->id();
-            $table->string('phone_number')->unique();
-            $table->string('otp');
-            $table->timestamp('expires_at');
+            $table->string('slider_name');
+            $table->string('slider_image'); // For storing the image path
+            $table->softDeletes(); // Soft deletes column
             $table->timestamps();
-            
-            $table->index('phone_number'); 
         });
     }
 
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('otps');
+        Schema::dropIfExists('sliders');
     }
 };

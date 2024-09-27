@@ -11,14 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('otps', function (Blueprint $table) {
-            $table->id();
-            $table->string('phone_number')->unique();
-            $table->string('otp');
-            $table->timestamp('expires_at');
-            $table->timestamps();
-            
-            $table->index('phone_number'); 
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('profile_picture')->nullable()->after('phone_number');
         });
     }
 
@@ -27,6 +21,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('otps');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('profile_picture');
+        });
     }
 };
+

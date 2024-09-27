@@ -6,10 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Services\OtpService;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
-class AuthController 
+class AuthController extends Controller
 {
     protected $otpService;
 
@@ -20,12 +21,18 @@ class AuthController
 
     public function sendOtp(Request $request)
     {
-        $request->validate([
-            'phone_number' => 'required|string  '
+        $validator = Validator::make($request->all(), [
+            'phone_number' => 'required|string',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
 
         $existingUser = User::where('phone_number', $request->phone_number)->first();
         $phoneNumber = $request->phone_number;
+        
 
         if ($existingUser) {
           
@@ -47,27 +54,29 @@ class AuthController
 
     public function verifyOtp(Request $request)
     {
-        $request->validate([
-            'phone_number' => 'required|string|unique:users',
-            'otp' => 'required|string'
+        $validator = Validator::make($request->all(), [
+            'phone_number' => 'required|string',
+            'otp' => 'required|string',
         ]);
 
-        $otpValid = $this->otpService->verifyOtp($request->phone_number, $request->otp);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
 
+        $phone_number = $request->phone_number;
+        $otp = $request->otp;
+
+        $otpValid = $this->otpService->verifyOtp($phone_number, $otp);
+
+        // dd($otpValid);
         if (!$otpValid) {
             return response()->json([
                 'message' => 'Invalid OTP.'
             ], 400);
         }
-        $userExists = User::where('phone_number', $request->phone_number)->first();
+        $user = User::firstOrCreate(['phone_number' => $phone_number]);
+        $token = $user->createToken('auth_token',[],now()->addMinutes(60))->plainTextToken;
 
-         if (!$userExists) {
-            $user = User::create([
-                'phone_number' => $request->phone_number
-            ]);
-        }
-        $token = $user->createToken('auth_token')->plainTextToken;
-        
         return response()->json([
             'message' => 'OTP verified, user logged in.',
             'token' => $token]);

@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('otps', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->string('phone_number')->unique();
-            $table->string('otp');
-            $table->timestamp('expires_at');
+            $table->string('category_name');
+            $table->string('category_image');
+            $table->softDeletes(); 
             $table->timestamps();
-            
-            $table->index('phone_number'); 
         });
     }
 
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('otps');
+        Schema::dropIfExists('categories');
     }
 };
