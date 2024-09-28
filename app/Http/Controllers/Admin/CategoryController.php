@@ -61,7 +61,7 @@ class CategoryController extends Controller
         $category->category_name = $request->category_name;
         $category->save();
 
-        return redirect()->route('admin.category.index')->with('success', 'Slider updated successfully.');
+        return redirect()->route('admin.category.index')->with('success', 'Course updated successfully.');
     }
 
     public function destroy(Category $category)
@@ -85,7 +85,7 @@ class CategoryController extends Controller
          }
  
          $category->forceDelete();
-         return redirect()->route('admin.category.index')->with('success', 'Slider permanently deleted.');
+         return redirect()->route('admin.category.index')->with('success', 'Course permanently deleted.');
      }
 
 

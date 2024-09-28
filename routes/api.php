@@ -8,7 +8,7 @@ use App\Http\Controllers\Api\SliderController;
 use App\Http\Controllers\Api\CategoryController;
 
 use App\Http\Controllers\Api\UserController;
-
+use App\Http\Controllers\API\VideoController;
 
 
 // Public API 
@@ -16,6 +16,14 @@ Route::get('/sliders', [SliderController::class, 'index']);
 Route::get('/categories', [CategoryController::class, 'index']); 
 Route::get('/top-categories', [CategoryController::class, 'TopCategories']); 
 
+//video APi
+
+
+
+
+Route::get('/videos/free', [VideoController::class, 'getFreeVideos'])->name('api.videos.free');
+Route::get('/videos', [VideoController::class, 'getAllVideos'])->name('api.videos.all');
+Route::get('/videos/{id}/play', [VideoController::class, 'playVideo'])->name('api.videos.play');
 
 
 // Auth api
