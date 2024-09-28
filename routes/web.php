@@ -14,9 +14,9 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::resource('category', CategoryController::class)->middleware(['auth', 'verified']);
-Route::resource('course', CourseController::class)->middleware(['auth', 'verified']);
-Route::resource('video', VideoController::class)->middleware(['auth', 'verified']);
+Route::resource('category/{id?}', CategoryController::class)->middleware(['auth', 'verified']);
+Route::resource('course/{id?}', CourseController::class)->middleware(['auth', 'verified']);
+Route::resource('video/{id?}', VideoController::class)->middleware(['auth', 'verified']);
 
 
 // Route::middleware('auth')->group(function () {
