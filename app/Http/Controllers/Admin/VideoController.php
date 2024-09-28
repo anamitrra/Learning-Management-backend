@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Course;
 use Illuminate\Http\Request;
 use App\Models\Video;
 use Illuminate\Support\Facades\Storage;
@@ -12,22 +14,26 @@ class VideoController extends Controller
     public function index()
     {
         $videos = Video::all();
-        return view('videos.index', compact('videos')); 
+        return view('admin.videos.index', compact('videos'));
     }
 
-   public function create()
+    public function create()
     {
-        return view('videos.create'); 
+        $categories = Category::select('id', 'category_name')->get();
+        $courses = Course::select('id', 'course_name')->get();
+        return view('admin.videos.create', compact('categories', 'courses'));
     }
 
     public function edit(Video $video)
     {
-        return view('videos.edit', compact('video')); 
+        $categories = Category::select('id', 'category_name')->get();
+        $courses = Course::select('id', 'course_name')->get();
+        return view('admin.videos.edit', compact('video', 'categories', 'courses'));
     }
 
     public function show(Video $video)
     {
-        return view('videos.show', compact('video')); 
+        return view('admin.videos.show', compact('video'));
     }
 
     public function store(Request $request)
@@ -40,7 +46,7 @@ class VideoController extends Controller
             'course' => 'required|string',
             'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
             'video' => 'required|mimes:mp4,mov,avi,flv|max:200000',
-            'is_free' => 'required|boolean',
+            'is_free' => 'nullable',
         ]);
 
         if ($request->hasFile('video')) {
@@ -55,8 +61,8 @@ class VideoController extends Controller
             'category' => $validated['category'],
             'course' => $validated['course'],
             'image' => $imagePath,
-            'video_path' => $videoPath, 
-            'is_free' => $validated['is_free'],
+            'video_path' => $videoPath,
+            'is_free' => $request->has('is_free'),
         ]);
         return redirect()->route('videos.index')->with('success', 'Video created successfully!');
     }
@@ -70,8 +76,8 @@ class VideoController extends Controller
             'category' => 'required|string',
             'course' => 'required|string',
             'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
-            'video' => 'nullable|mimes:mp4,mov,avi,flv|max:200000', 
-            'is_free' => 'required|boolean',
+            'video' => 'nullable|mimes:mp4,mov,avi,flv|max:200000',
+            'is_free' => 'nullable',
         ]);
 
 
@@ -94,7 +100,7 @@ class VideoController extends Controller
             'course' => $validated['course'],
             'image' => $imagePath,
             'video_path' => $videoPath,
-            'is_free' => $validated['is_free'],
+            'is_free' => $request->has('is_free'),
         ]);
 
         return redirect()->route('videos.index')->with('success', 'Video updated successfully!');
@@ -113,5 +119,4 @@ class VideoController extends Controller
         $video->delete();
         return redirect()->route('videos.index')->with('success', 'Video deleted successfully!');
     }
-
 }

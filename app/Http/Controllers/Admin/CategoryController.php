@@ -39,7 +39,7 @@ class CategoryController extends Controller
             'category_image' => $path,
         ]);
 
-        return redirect()->route('admin.category.index')->with('success', 'Category created successfully.');
+        return redirect()->route('category.index')->with('success', 'Category created successfully.');
     }
 
     public function update(Request $request, Category $category)
@@ -61,33 +61,30 @@ class CategoryController extends Controller
         $category->category_name = $request->category_name;
         $category->save();
 
-        return redirect()->route('admin.category.index')->with('success', 'Course updated successfully.');
+        return redirect()->route('category.index')->with('success', 'Course updated successfully.');
     }
 
     public function destroy(Category $category)
     {
         $category->delete();
-        return redirect()->route('admin.category.index')->with('success', 'category soft deleted successfully.');
+        return redirect()->route('category.index')->with('success', 'category soft deleted successfully.');
     }
 
     public function restore(Category $category)
-     {
-         $category->restore();
-         return redirect()->route('admin.category.index')->with('success', 'category restored successfully.');
-     }
+    {
+        $category->restore();
+        return redirect()->route('admin.category.index')->with('success', 'category restored successfully.');
+    }
 
-     public function forceDelete($id)
-     {
-         $category = Category::withTrashed()->findOrFail($id);
-         
-         if ($category->category_image && Storage::disk('public')->exists($category->category_image)) {
-             Storage::disk('public')->delete($category->category_image);
-         }
- 
-         $category->forceDelete();
-         return redirect()->route('admin.category.index')->with('success', 'Course permanently deleted.');
-     }
+    public function forceDelete($id)
+    {
+        $category = Category::withTrashed()->findOrFail($id);
 
+        if ($category->category_image && Storage::disk('public')->exists($category->category_image)) {
+            Storage::disk('public')->delete($category->category_image);
+        }
 
+        $category->forceDelete();
+        return redirect()->route('admin.category.index')->with('success', 'Course permanently deleted.');
+    }
 }
-

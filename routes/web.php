@@ -14,17 +14,19 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::resource('category/{id?}', CategoryController::class)->middleware(['auth', 'verified']);
-Route::resource('course/{id?}', CourseController::class)->middleware(['auth', 'verified']);
-Route::resource('video/{id?}', VideoController::class)->middleware(['auth', 'verified']);
+// Route::resource('category', CategoryController::class)->middleware(['auth', 'verified']);
+// Route::resource('course/{id?}', CourseController::class)->middleware(['auth', 'verified']);
+// Route::resource('video/{id?}', VideoController::class)->middleware(['auth', 'verified']);
 
 
-// Route::middleware('auth')->group(function () {
-//     Route::get('/category', [CategoryController::class, 'index'])->name('category.get');
-//     Route::post('/category', [CategoryController::class, 'store'])->name('category.create');
-//     Route::patch('/category', [CategoryController::class, 'update'])->name('category.update');
-//     Route::delete('/category', [CategoryController::class, 'destroy'])->name('category.destroy');
-// });
+Route::middleware('auth')->group(function () {
+    Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
+    Route::get('/category/create', [CategoryController::class, 'create'])->name('category.create');
+    Route::post('/category/store', [CategoryController::class, 'store'])->name('category.store');
+    Route::get('/category/{category}/edit', [CategoryController::class, 'edit'])->name('category.edit');
+    Route::patch('/category/{category}/update', [CategoryController::class, 'update'])->name('category.update');
+    Route::delete('/category/{category}/destroy', [CategoryController::class, 'destroy'])->name('category.destroy');
+});
 
 
 
@@ -42,15 +44,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Route::get('/videos', [VideoController::class, 'index'])->name('videos.index');          // Display the list of videos
-// Route::get('/videos/create', [VideoController::class, 'create'])->name('videos.create');  // Show form to create a new video
+Route::get('/videos', [VideoController::class, 'index'])->name('videos.index');          // Display the list of videos
+Route::get('/videos/create', [VideoController::class, 'create'])->name('videos.create');  // Show form to create a new video
+Route::post('/videos/store', [VideoController::class, 'store'])->name('videos.store');         // Store
+Route::get('/videos/{video}', [VideoController::class, 'show'])->name('videos.show');    // Show a single video
+Route::get('/videos/{video}/edit', [VideoController::class, 'edit'])->name('videos.edit'); // Show form to edit a video
+Route::put('/videos/{video}/update', [VideoController::class, 'update'])->name('videos.update'); // Update 
+Route::delete('/videos/{video}/destroy', [VideoController::class, 'destroy'])->name('videos.destroy'); // Delete
 
-// Route::post('/videos', [VideoController::class, 'store'])->name('videos.store');         // Store
-
-// Route::get('/videos/{video}', [VideoController::class, 'show'])->name('videos.show');    // Show a single video
-// Route::get('/videos/{video}/edit', [VideoController::class, 'edit'])->name('videos.edit');// Show form to edit a video
-
-// Route::put('/videos/{video}', [VideoController::class, 'update'])->name('videos.update');// Update 
-// Route::delete('/videos/{video}', [VideoController::class, 'destroy'])->name('videos.destroy'); // Delete
-
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
