@@ -13,7 +13,8 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
     <!-- Scripts -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{ $css }}" id="css">
+<script src="{{ $js }}" id="js"></script>
 </head>
 
 <body class="font-sans antialiased">
