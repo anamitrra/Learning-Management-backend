@@ -11,8 +11,8 @@ class CourseController extends Controller
 {
     public function index()
     {
-        $category = Course::all();
-        return view('admin.course.index', compact('course'));
+        $courses     = Course::all();
+        return view('admin.course.index', compact('courses'));
     }
 
     public function create()
@@ -39,7 +39,7 @@ class CourseController extends Controller
             'course_image' => $path,
         ]);
 
-        return redirect()->route('admin.course.index')->with('success', 'Course created successfully.');
+        return redirect()->route('course.index')->with('success', 'Course created successfully.');
     }
 
     public function update(Request $request, Course $course)
@@ -71,23 +71,20 @@ class CourseController extends Controller
     }
 
     public function restore(Course $course)
-     {
-         $course->restore();
-         return redirect()->route('admin.course.index')->with('success', 'course restored successfully.');
-     }
+    {
+        $course->restore();
+        return redirect()->route('admin.course.index')->with('success', 'course restored successfully.');
+    }
 
-     public function forceDelete($id)
-     {
-         $course = Course::withTrashed()->findOrFail($id);
-         
-         if ($course->course_image && Storage::disk('public')->exists($course->course_image)) {
-             Storage::disk('public')->delete($course->course_image);
-         }
- 
-         $course->forceDelete();
-         return redirect()->route('admin.course.index')->with('success', 'course permanently deleted.');
-     }
+    public function forceDelete($id)
+    {
+        $course = Course::withTrashed()->findOrFail($id);
 
+        if ($course->course_image && Storage::disk('public')->exists($course->course_image)) {
+            Storage::disk('public')->delete($course->course_image);
+        }
 
+        $course->forceDelete();
+        return redirect()->route('admin.course.index')->with('success', 'course permanently deleted.');
+    }
 }
-
