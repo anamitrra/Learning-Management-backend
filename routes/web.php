@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CourseController;
+use App\Http\Controllers\Admin\SliderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\VideoController;
 
@@ -58,5 +59,14 @@ Route::get('/videos/{video}', [VideoController::class, 'show'])->name('videos.sh
 Route::get('/videos/{video}/edit', [VideoController::class, 'edit'])->name('videos.edit'); // Show form to edit a video
 Route::put('/videos/{video}/update', [VideoController::class, 'update'])->name('videos.update'); // Update 
 Route::delete('/videos/{video}/destroy', [VideoController::class, 'destroy'])->name('videos.destroy'); // Delete
+
+Route::middleware('auth')->group(function () {
+    Route::get('/slider', [SliderController::class, 'index'])->name('slider.index');
+    Route::get('/slider/create', [SliderController::class, 'create'])->name('slider.create');
+    Route::post('/slider/store', [SliderController::class, 'store'])->name('slider.store');
+    Route::get('/slider/{slider}/edit', [SliderController::class, 'edit'])->name('slider.edit');
+    Route::patch('/slider/{slider}/update', [SliderController::class, 'update'])->name('slider.update');
+    Route::delete('/slider/{slider}/destroy', [SliderController::class, 'destroy'])->name('slider.destroy');
+});
 
 require __DIR__ . '/auth.php';

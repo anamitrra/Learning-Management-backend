@@ -10,5 +10,6 @@
         <x-nav-link class="py-2" :href="route('course.index')" :active="request()->routeIs('course.index')">Courses</x-nav-link>
         <!-- <x-nav-link class="py-2" :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">Sliders</x-nav-link> -->
         <x-nav-link class="py-2" :href="route('videos.index')" :active="request()->routeIs('videos.index')">Videos</x-nav-link>
+        <x-nav-link class="py-2" :href="route('slider.index')" :active="request()->routeIs('slider.index')">Sliders</x-nav-link>
     </div>
 </div>
