@@ -49,14 +49,14 @@ Route::middleware('auth')->group(function () {
 
 
 
-Route::middleware('auth')->group(function () {
+
     Route::get('/course', [CourseController::class, 'index'])->name('course.index');
     Route::get('/course/create', [CourseController::class, 'create'])->name('course.create');
     Route::post('/course/store', [CourseController::class, 'store'])->name('course.store');
     Route::get('/course/{course}/edit', [CourseController::class, 'edit'])->name('course.edit');
     Route::patch('/course/{course}/update', [CourseController::class, 'update'])->name('course.update');
     Route::delete('/course/{course}/destroy', [CourseController::class, 'destroy'])->name('course.destroy');
-});
+
 
 
 Route::middleware('auth')->group(function () {

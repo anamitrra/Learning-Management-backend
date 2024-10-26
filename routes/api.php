@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\SliderController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\HomeScreenController;
 
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\VideoController;
@@ -15,6 +16,8 @@ use App\Http\Controllers\Api\VideoController;
 Route::get('/sliders', [SliderController::class, 'index']); 
 Route::get('/categories', [CategoryController::class, 'index']); 
 Route::get('/top-categories', [CategoryController::class, 'TopCategories']); 
+Route::get('/home', [HomeScreenController::class, 'homeScreenData']);
+
 
 //video APi
 
