@@ -14,7 +14,7 @@ class SliderController extends Controller
             return [
                 'id' => $slider->id,
                 'slider_name' =>$slider->slider_name,
-                'slider_image' => asset('public/storage/'.$slider->slider_image),
+                'slider_image' => asset('storage/'.$slider->slider_image),
             ];
         });
         return response()->json([

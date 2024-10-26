@@ -80,8 +80,8 @@ class VideoController extends Controller
                 'id' => $video->id,
                 'title' => $video->title,
                 'description' => $video->description,
-                'image' => asset('public/storage/'.$video->image),
-                'video_url' => asset('public/storage/'.$video->video_path)
+                'image' => asset('storage/'.$video->image),
+                'video_url' => asset('storage/'.$video->video_path)
             ];
         });
         
@@ -107,7 +107,7 @@ class VideoController extends Controller
             'success' => true,
             'message' => 'Data Fetched Successfully',
             'data' => [
-                'video_url' => asset('public/storage/' . $video->video_path)
+                'video_url' => asset('storage/' . $video->video_path)
             ]
         ]);
     }

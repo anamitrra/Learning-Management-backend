@@ -15,7 +15,7 @@ class CategoryController extends Controller
             return [
                 'id' => $category->id,
                 'name' => $category->category_name,
-                'image' => asset('public/storage/'.$category->category_image)
+                'image' => asset('storage/'.$category->category_image)
             ];
         });
 
@@ -33,7 +33,7 @@ class CategoryController extends Controller
             return [
                 'id' => $category->id,
                 'name' => $category->category_name,
-                'image' => asset('public/storage/'.$category->category_image),
+                'image' => asset('storage/'.$category->category_image),
                 'view_all' => 'View All'
             ];
         });

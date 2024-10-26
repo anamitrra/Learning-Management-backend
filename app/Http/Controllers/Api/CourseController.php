@@ -16,7 +16,7 @@ class CourseController extends Controller
                     'id' => $course->id,
                     'title' => $course->title,
                     'description' => $course->description,
-                    'image' => asset('public/storage/'.$course->image),
+                    'image' => asset('storage/'.$course->image),
                 ];
             });
             return response()->json([
