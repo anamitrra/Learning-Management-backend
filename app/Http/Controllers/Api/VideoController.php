@@ -13,19 +13,81 @@ class VideoController extends Controller
     {
         $freeVideos = Video::where('is_free', true)
             ->take(10)
-            ->get(['id', 'title', 'description', 'image', 'video_path']);
+            ->get();
+
+        $videos = $freeVideos->map(function($video) {
+                return [
+                    'id' => $video->id,
+                    'title' => $video->title,
+                    'description' => $video->description,
+                    'image' => asset('storage/'.$video->image),
+                    'video_url' => asset('storage/'.$video->video_path)
+                ];
+            });
         return response()->json([
             'success' => true,
-            'data' => $freeVideos
-        ]);
+            'message' => 'Data Fetched Successfully',
+            'data' => $videos
+        ],200);
     }
+
+    public function videoByCategory($category,)
+    {
+       $videoByCategory = Video::where('category',$category)->get();
+
+        $videos = $videoByCategory->map(function($video) {
+                return [
+                    'id' => $video->id,
+                    'title' => $video->title,
+                    'description' => $video->description,
+                    'image' => asset('storage/'.$video->image),
+                    'video_url' => asset('storage/'.$video->video_path)
+                ];
+            });
+        return response()->json([
+            'success' => true,
+            'message' => 'Data Fetched Successfully',
+            'data' => $videos
+        ],200);
+    }
+
+    public function videoByCategoryId($id)
+    {
+       $videoByCategory = Video::find($id)->get();
+
+        $videos = $videoByCategory->map(function($video) {
+                return [
+                    'id' => $video->id,
+                    'title' => $video->title,
+                    'description' => $video->description,
+                    'image' => asset('storage/'.$video->image),
+                    'video_url' => asset('storage/'.$video->video_path)
+                ];
+            });
+        return response()->json([
+            'success' => true,
+            'message' => 'Data Fetched Successfully',
+            'data' => $videos
+        ],200);
+    }
+
+
 
     public function getAllVideos()
     {
-        $videos = Video::all(['id', 'title', 'description', 'image', 'video_path']);
+        $videos =  Video::all()->map(function($video) {
+            return [
+                'id' => $video->id,
+                'title' => $video->title,
+                'description' => $video->description,
+                'image' => asset('public/storage/'.$video->image),
+                'video_url' => asset('public/storage/'.$video->video_path)
+            ];
+        });
         
         return response()->json([
             'success' => true,
+            'message' => 'Data Fetched Successfully',
             'data' => $videos
         ]);
     }
@@ -43,8 +105,9 @@ class VideoController extends Controller
 
         return response()->json([
             'success' => true,
+            'message' => 'Data Fetched Successfully',
             'data' => [
-                'video_url' => asset('storage/' . $video->video_path)
+                'video_url' => asset('public/storage/' . $video->video_path)
             ]
         ]);
     }

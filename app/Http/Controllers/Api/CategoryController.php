@@ -10,18 +10,39 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::all();
+
+        $categories = Category::all()->map(function($category) {
+            return [
+                'id' => $category->id,
+                'name' => $category->category_name,
+                'image' => asset('public/storage/'.$category->category_image)
+            ];
+        });
+
         return response()->json([
-           'message' => 'Success',
-           'slider' => $categories]);
+           'success' => true,
+           'message' => 'Data Fetched Successfully',
+           'data' => $categories]);
     }
 
-    public function topCategories() : Object
+    public function topCategories() 
     {
         $topCategories = Category::limit(5)->get();
+    
+        $categories = $topCategories->map(function($category) {
+            return [
+                'id' => $category->id,
+                'name' => $category->category_name,
+                'image' => asset('public/storage/'.$category->category_image),
+                'view_all' => 'View All'
+            ];
+        });
+    
         return response()->json([
-            'message'=> 'Success',
-            'topCategories'=>$topCategories
-        ]);
+            'success' => true,
+            'message' => 'Data Fetched Successfully',
+            'data' => $categories
+        ],200);
     }
+    
 }

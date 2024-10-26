@@ -10,10 +10,17 @@ class SliderController extends Controller
 {
     public function index()
     {
-        $sliders = Slider::all();
+        $sliders = Slider::all()->map(function($slider) {
+            return [
+                'id' => $slider->id,
+                'slider_name' =>$slider->slider_name,
+                'slider_image' => asset('public/storage/'.$slider->slider_image),
+            ];
+        });
         return response()->json([
-           'message' => 'Success',
-           'slider' => $sliders]);
+            'Success' => true,
+           'message' => 'Data Fetched Successfully',
+           'data' => $sliders],200);
     }
 
 }
