@@ -13,8 +13,6 @@ class HomeScreenController extends Controller
 
     public function homeScreenData()  {
 
-        $categoryController = new CategoryController();
-
         $topCategoriesResponse = $this->topCategories(); 
         $topCategoriesData = json_decode($topCategoriesResponse->getContent(), true);
 
