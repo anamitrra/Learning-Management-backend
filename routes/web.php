@@ -3,13 +3,25 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CourseController;
-use App\Http\Controllers\Admin\SliderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\VideoController;
 
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+
+use Illuminate\Support\Facades\Artisan;
+
+Route::get('/foo', function () {
+    Artisan::call('storage:link');
+});
+
+Route::get('/symlink', function () {
+    $target = storage_path('app/public');
+    $link = $_SERVER['DOCUMENT_ROOT'].'/public/storage';
+    symlink($target, $link);
+    echo "Done";
+ });
 
 Route::get('/', function () {
     return view('dashboard');
