@@ -8,7 +8,7 @@ use App\Http\Controllers\Api\SliderController;
 use App\Http\Controllers\Api\CategoryController;
 
 use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\API\VideoController;
+use App\Http\Controllers\Api\VideoController;
 
 
 // Public API 
