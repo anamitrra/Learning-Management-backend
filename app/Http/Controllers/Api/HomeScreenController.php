@@ -26,6 +26,7 @@ class HomeScreenController extends Controller
         $freeVideosResponse = $this->getFreeVideos();
         $freeVideosData = json_decode($freeVideosResponse->getContent(), true);
 
+        $topCategoriesData['data'][] = ['view_all' => 'View_all'];
 
 
         return response()->json([
@@ -118,12 +119,14 @@ class HomeScreenController extends Controller
                 'image' => asset('storage/'.$category->category_image),
             ];
         });
+
+       
     
         return response()->json([
             'success' => true,
             'message' => 'Data Fetched Successfully',
-            'data' => $categories,
-            'view_all' => 'View All'
+            'data' => $categories
+            
         ],200);
     }
 
