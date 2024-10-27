@@ -31,24 +31,31 @@ class VideoController extends Controller
         ],200);
     }
 
-    public function videoByCategory($category,)
+    public function getVideosByCategory($id)
     {
-       $videoByCategory = Video::where('category',$category)->get();
-
-        $videos = $videoByCategory->map(function($video) {
-                return [
-                    'id' => $video->id,
-                    'title' => $video->title,
-                    'description' => $video->description,
-                    'image' => asset('storage/'.$video->image),
-                    'video_url' => asset('storage/'.$video->video_path)
-                ];
-            });
+        $videos = Video::where('category_id', $id)->get();
+        if ($videos->isEmpty()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No videos found for this category.'
+            ], 404);
+        }
+    
+        $videoData = $videos->map(function($video) {
+            return [
+                'id' => $video->id,
+                'title' => $video->title,
+                'description' => $video->description,
+                'image' => asset('storage/'.$video->image),
+                'video_url' => asset('storage/'.$video->video_path)
+            ];
+        });
+    
         return response()->json([
             'success' => true,
-            'message' => 'Data Fetched Successfully',
-            'data' => $videos
-        ],200);
+            'message' => 'Videos fetched successfully.',
+            'data' => $videoData
+        ], 200);
     }
 
     public function videoByCategoryId($id)

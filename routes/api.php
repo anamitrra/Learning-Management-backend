@@ -23,7 +23,7 @@ Route::get('/home', [HomeScreenController::class, 'homeScreenData']);
 
 
 
-
+Route::get('/videos/category/{id}', [VideoController::class, 'getVideosByCategory']);
 Route::get('/videos/free', [VideoController::class, 'getFreeVideos'])->name('api.videos.free');
 Route::get('/videos', [VideoController::class, 'getAllVideos'])->name('api.videos.all');
 Route::get('/videos/{id}/play', [VideoController::class, 'playVideo'])->name('api.videos.play');
