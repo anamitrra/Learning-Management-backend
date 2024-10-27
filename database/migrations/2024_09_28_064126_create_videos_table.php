@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('title');
             $table->text('description')->nullable();
             $table->longText('long_description')->nullable();
-            $table->string('category');
-            $table->string('course');
+            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
+            $table->foreignId('course_id')->nullable()->constrained('courses')->onDelete('set null');
             $table->string('image')->nullable();
             $table->string('video_path');
             $table->boolean('is_free')->default(false);

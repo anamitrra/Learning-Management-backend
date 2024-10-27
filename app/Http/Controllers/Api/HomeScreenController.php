@@ -116,14 +116,14 @@ class HomeScreenController extends Controller
                 'id' => $category->id,
                 'name' => $category->category_name,
                 'image' => asset('storage/'.$category->category_image),
-                'view_all' => 'View All'
             ];
         });
     
         return response()->json([
             'success' => true,
             'message' => 'Data Fetched Successfully',
-            'data' => $categories
+            'data' => $categories,
+            'view_all' => 'View All'
         ],200);
     }
 

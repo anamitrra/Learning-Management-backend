@@ -12,10 +12,15 @@ class Video extends Model
         'title',
         'description',
         'long_description',
-        'category',
-        'course',
+        'category_id',
+        'course_id',
         'image',
         'video_path',
         'is_free'
     ];
+
+    public function category()
+    {
+       return $this->belongsTo(Category::class, 'category_id');
+    }
 }

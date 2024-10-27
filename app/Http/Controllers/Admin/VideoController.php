@@ -13,7 +13,7 @@ class VideoController extends Controller
 {
     public function index()
     {
-        $videos = Video::all();
+        $videos = Video::with('category')->get();
         return view('admin.videos.index', compact('videos'));
     }
 
@@ -38,12 +38,15 @@ class VideoController extends Controller
 
     public function store(Request $request)
     {
+
+
+
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'long_description' => 'nullable|string',
-            'category' => 'required|string',
-            'course' => 'string',
+            'category' => 'required|integer|exists:categories,id',
+            'course' => 'nullable|integer|exists:courses,id',
             'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
             'video' => 'required|mimes:mp4,mov,avi,flv|max:200000',
             'is_free' => 'nullable',
@@ -58,8 +61,8 @@ class VideoController extends Controller
             'title' => $validated['title'],
             'description' => $validated['description'],
             'long_description' => $validated['long_description'],
-            'category' => $validated['category'],
-            'course' => $validated['course'],
+            'category_id' => $validated['category'],
+            'course_id' => $validated['course'],
             'image' => $imagePath,
             'video_path' => $videoPath,
             'is_free' => $request->has('is_free'),
