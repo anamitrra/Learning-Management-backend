@@ -30,7 +30,7 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-100 dark:bg-gray-900 grid grid-cols-5">
+    <div class="min-h-screen bg-gray-100  grid grid-cols-5">
         @include('layouts.sidebar')
 
         <div class="col-span-4">
@@ -38,7 +38,7 @@
 
             <!-- Page Heading -->
             @isset($header)
-            <header class="bg-white dark:bg-gray-800 shadow sticky top-0">
+            <header class="bg-white shadow sticky top-0">
                 <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between">
                     {{ $header }}
                 </div>

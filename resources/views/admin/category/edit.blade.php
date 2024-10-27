@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="font-semibold text-xl text-gray-800  leading-tight">
             Update Category
         </h2>
 
@@ -10,14 +10,14 @@
     </x-slot>
 
     <div class="max-w-7xl mx-auto sm:px-3 lg:px-6 py-10">
-        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-5">
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-5">
 
             <form method="POST" action="{{ route('category.update', ['category' => $category->id]) }}" enctype="multipart/form-data" onsubmit="return confirmUpdate();">
                 @csrf
                 @method('PATCH')
                 <div>
                     <x-input-label for="category_name" value="Category Name" />
-                    <x-text-input id="category_name" class="block mt-1 w-full" type="text" name="category_name" value="{{ $category->category_name }}" />
+                    <x-text-input id="category_name" class="block mt-2 w-full" type="text" name="category_name" value="{{ $category->category_name }}" />
                     <x-input-error :messages="$errors->get('category_name')" class="mt-2" />
                 </div>
                 <br>

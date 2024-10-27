@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="font-semibold text-xl text-gray-800  leading-tight">
             Upload Video
         </h2>
 
@@ -10,7 +10,7 @@
     </x-slot>
 
     <div class="max-w-7xl mx-auto sm:px-3 lg:px-6 py-10">
-        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-5">
+        <div class="bg-slate-200 overflow-hidden shadow-sm sm:rounded-lg p-5">
 
             <form method="POST" action="{{ route('videos.store') }}" enctype="multipart/form-data">
                 @csrf
@@ -37,7 +37,7 @@
                     <x-input-select id="category" class="block mt-1 w-full" name="category">
                         <option value="">Please Select</option>
                         @foreach ($categories as $category)
-                        <option value="{{ $category->category_name }}">{{ $category->category_name }}</option>
+                        <option value="{{ $category->id }}">{{ $category->category_name }}</option>
                         @endforeach
                     </x-input-select>
                     <x-input-error :messages="$errors->get('category')" class="mt-2" />
@@ -49,7 +49,7 @@
                     <x-input-select id="course" class="block mt-1 w-full" name="course">
                         <option value="">Please Select</option>
                         @foreach ($courses as $course)
-                        <option value="{{ $course->course_name }}">{{ $course->course_name }}</option>
+                        <option value="{{ $course->id }}">{{ $course->course_name }}</option>
                         @endforeach
                     </x-input-select>
                     <x-input-error :messages="$errors->get('course')" class="mt-2" />
