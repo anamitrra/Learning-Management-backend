@@ -9,7 +9,7 @@ class OtpService
 {
     public function generateOtp(string $phoneNumber): string
     {
-        $otp = rand(100000, 999999); 
+        $otp = rand(10000, 99999); 
         $expiresAt = Carbon::now()->addMinutes(5);
 
         Otp::updateOrCreate(
