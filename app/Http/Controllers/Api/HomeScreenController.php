@@ -26,7 +26,11 @@ class HomeScreenController extends Controller
         $freeVideosResponse = $this->getFreeVideos();
         $freeVideosData = json_decode($freeVideosResponse->getContent(), true);
 
-        $topCategoriesData['data'][] = ['view_all' => 'View_all'];
+        $topCategoriesData['data'][] = [
+            'id' => "",
+            'name' => 'View all',
+            'image'=>""
+        ];
 
 
         return response()->json([
