@@ -34,15 +34,17 @@
                 </div>
                 <br>
                 <div>
-                    <x-input-label for="category" value="Video Category" />
-                    <x-input-select id="category" class="block mt-1 w-full" name="category">
-                        <option value="">Please Select</option>
-                        @foreach ($categories as $category)
-                        <option {{ ($video->category == $category->category_name ? "selected":"") }} value="{{ $category->category_name }}">{{ $category->category_name }}</option>
-                        @endforeach
-                    </x-input-select>
-                    <x-input-error :messages="$errors->get('category')" class="mt-2" />
-                </div>
+    <x-input-label for="category" value="Video Category" />
+    <x-input-select id="category" class="block mt-1 w-full" name="category_id">
+        <option value="">Please Select</option>
+        @foreach ($categories as $category)
+            <option {{ ($video->category_id == $category->id ? "selected" : "") }} value="{{ $category->id }}">
+                {{ $category->category_name }}
+            </option>
+        @endforeach
+    </x-input-select>
+    <x-input-error :messages="$errors->get('category_id')" class="mt-2" />
+</div>
 
                 <br>
                 <div>

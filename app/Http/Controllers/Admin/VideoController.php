@@ -62,7 +62,7 @@ class VideoController extends Controller
             'description' => $validated['description'],
             'long_description' => $validated['long_description'],
             'category_id' => $validated['category'],
-            'course_id' => $validated['course'],
+            'course' => $validated['course'],
             'image' => $imagePath,
             'video_path' => $videoPath,
             'is_free' => $request->has('is_free'),
@@ -72,12 +72,13 @@ class VideoController extends Controller
 
     public function update(Request $request, Video $video)
     {
+        // dd($request);
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'long_description' => 'nullable|string',
-            'category' => 'required|string',
-            'course' => 'string',
+            'category_id' => 'required|integer|exists:categories,id',
+            'course' => 'nullable|integer|exists:courses,id', 
             'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
             'video' => 'nullable|mimes:mp4,mov,avi,flv|max:200000',
             'is_free' => 'nullable',
@@ -99,8 +100,8 @@ class VideoController extends Controller
             'title' => $validated['title'],
             'description' => $validated['description'],
             'long_description' => $validated['long_description'],
-            'category' => $validated['category'],
-            'course' => $validated['course'],
+            'category_id' => $validated['category_id'],
+            'course_id' => $validated['course'],
             'image' => $imagePath,
             'video_path' => $videoPath,
             'is_free' => $request->has('is_free'),
